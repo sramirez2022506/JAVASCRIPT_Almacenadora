@@ -1,5 +1,5 @@
 import { useState } from "react";
-import './DashboardPage.css';
+import './ListaTareas.css';
 
 export const FormPage = () => {
   const [tasks, setTasks] = useState([]);
@@ -66,8 +66,9 @@ export const FormPage = () => {
 
   return (
     <div className="form-container">
-      <h1>To Do List</h1>
+      <h1><img src="box-svgrepo-com.png"></img>To Do List</h1>
       <form onSubmit={handleAddTask}>
+      <li>
         <div>
           <label>Task Name</label>
           <input type="text" value={taskName} onChange={(e) => setTaskName(e.target.value)} />
@@ -85,10 +86,6 @@ export const FormPage = () => {
           <input type="text" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </div>
         <div>
-          <label>Incomplete</label>
-          <input type="checkbox" checked={incomplete} onChange={(e) => setIncomplete(e.target.checked)} />
-        </div>
-        <div>
           <label>Creator's Name</label>
           <input type="text" value={creatorName} onChange={(e) => setCreatorName(e.target.value)} />
         </div>
@@ -96,7 +93,12 @@ export const FormPage = () => {
           <label>Creator's Last Name</label>
           <input type="text" value={creatorLastName} onChange={(e) => setCreatorLastName(e.target.value)} />
         </div>
-        <button type='submit'>{editingTask ? 'Update Task' : 'Add Task'}</button>
+        <div>
+          <label>Incomplete</label>
+          <input type="checkbox" checked={incomplete} onChange={(e) => setIncomplete(e.target.checked)} />
+        </div>
+        <button className="add-button" type='submit'>{editingTask ? 'Update Task' : 'Add Task'}</button>
+        </li>
       </form>
       <ul>
         {tasks.map(task => (
@@ -122,8 +124,8 @@ export const FormPage = () => {
             <div>
               <strong>Creator's Last Name:</strong> {task.creatorLastName}
             </div>
-            <button onClick={() => handleEditTask(task.id)}>Edit Task</button>
-            <button onClick={() => handleDeleteTask(task.id)}>Delete Task</button>
+            <button className="edit-button" onClick={() => handleEditTask(task.id)}>Edit Task</button>
+            <button className="delete-button" onClick={() => handleDeleteTask(task.id)}>Delete Task</button>
           </li>
         ))}
       </ul>

@@ -1,4 +1,4 @@
-import { FormPage } from "../src/pages/dashboard";
+import { FormPage } from "../src/components/ListaTareas.jsx";
 
 const routes = [
     {path: '/*', element: <FormPage/>}
