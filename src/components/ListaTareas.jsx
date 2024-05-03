@@ -63,11 +63,11 @@ export const FormPage = () => {
       setCreatorLastName(taskToEdit.creatorLastName);
     }
   };
-
+ 
   return (
-    <div className="form-container">
-      <h1><img src="box-svgrepo-com.png"></img>To Do List</h1>
-      <form onSubmit={handleAddTask}>
+    <div className="app-container">
+      <h1><img src="icon"></img>To Do List</h1>
+      <form className="container-form-1" onSubmit={handleAddTask}>
       <li>
         <div>
           <label>Task Name</label>
@@ -100,7 +100,7 @@ export const FormPage = () => {
         <button className="add-button" type='submit'>{editingTask ? 'Update Task' : 'Add Task'}</button>
         </li>
       </form>
-      <ul>
+      <ul className="container-form-2">
         {tasks.map(task => (
           <li key={task.id}>
             <div>

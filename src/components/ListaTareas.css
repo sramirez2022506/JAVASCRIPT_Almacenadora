@@ -10,6 +10,7 @@
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -31,10 +32,12 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #032047;
     color: #333;
     margin: 0;
     padding: 0;
+    height: 100%;
+    width: 100%;
 }
 
 
@@ -61,11 +64,12 @@ strong {
 
 button.delete-button {
     background-color: #dc3545;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 button.edit-button {
     background-color: #c1d449;
+    margin-right: 10px;
 }
 
 button.edit-button:hover {
@@ -74,6 +78,7 @@ button.edit-button:hover {
 
 button.add-button {
     background-color: #5ab307;
+    margin-left: 10px;
 }
 
 button.add-button:hover {
@@ -82,4 +87,32 @@ button.add-button:hover {
 
 button.delete-button:hover {
     background-color: #c82333;
+}
+
+form.container-form-1 {
+    margin-left: 250px;
+    margin-top: 100px;
+    padding: 50px;
+    padding-bottom: 50px;
+    width: 65%;
+    height: 30%;
+    background-color: #ffe7bf;
+}
+
+ul.container-form-2 {
+    margin-left: 250px;
+    padding: 50px;
+    padding-bottom: 50px;
+    width: 65%;
+    height: 15%;
+    background-color: #ffe7bf;
+}
+
+div.app-container {
+    width: 1480px;
+    height: 1480px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ffc978;
 }
