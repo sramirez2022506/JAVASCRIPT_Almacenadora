@@ -1,7 +1,7 @@
 import React from "react";
-import "../assets/styles/loadingSpinner.css"; // Importa tus estilos CSS aquí
+import "./LoadingSpinner.css"; // Importa tus estilos CSS aquí
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <div className="spinner-container">
       <div className="spinner"></div>
