@@ -1,7 +1,7 @@
-import { FormPage } from "../src/components/ListaTareas.jsx";
+import { TaskPage } from "./pages/task";
 
 const routes = [
-    {path: '/*', element: <FormPage/>}
+    {path: '/*', element: <TaskPage/>}
 ]
 
 export default routes

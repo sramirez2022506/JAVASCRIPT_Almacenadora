@@ -1,0 +1,41 @@
+
+.todo-app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .todo-app-container h1 {
+    text-align: center;
+  }
+  
+  .todo-form-container {
+    margin-bottom: 20px;
+  }
+  
+  .todo-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .todo-text {
+    flex-grow: 1;
+    margin-left: 10px;
+  }
+  
+  .todo-item button {
+    margin-left: 10px;
+  }
+  
+  .todo-item button:hover {
+    color: red;
+    cursor: pointer;
+  }
+  
