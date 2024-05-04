@@ -96,7 +96,7 @@ form.container-form-1 {
     padding-bottom: 50px;
     width: 65%;
     height: 30%;
-    background-color: #ffe7bf;
+    background-color: #ffffff;
 }
 
 ul.container-form-2 {
@@ -105,7 +105,7 @@ ul.container-form-2 {
     padding-bottom: 50px;
     width: 65%;
     height: 15%;
-    background-color: #ffe7bf;
+    background-color: #ffffff;
 }
 
 div.app-container {
@@ -114,5 +114,5 @@ div.app-container {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #ffc978;
+    background-color: #ffffff;
 }

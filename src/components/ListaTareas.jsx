@@ -66,7 +66,7 @@ export const FormPage = () => {
  
   return (
     <div className="app-container">
-      <h1><img src="icon"></img>To Do List</h1>
+      <h1>To Do List</h1>
       <form className="container-form-1" onSubmit={handleAddTask}>
       <li>
         <div>
