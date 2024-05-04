@@ -1,95 +1,30 @@
+// TaskPage.jsx
 import React, { useState, useEffect } from "react";
-import { TodoForm } from "../../components/task/TodoForm";
+import { TodoForm } from "../../components/task/TodoForm.jsx";
 import { TodoList } from "../../components/task/TodoList";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
-import "./TaskPage.css";
+import { getTasks, postTask } from "../../services/api.jsx";
 
 export const TaskPage = () => {
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState("");
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
-    // Simular una carga inicial de tareas
-    setTimeout(() => {
-      const initialTodos = [
-        { 
-          id: 1, 
-          nameTask: "Hacer la compra", 
-          descripcion: "Comprar alimentos para la semana", 
-          fechaInicio: "2024-05-03", 
-          fechaCierre: "2024-05-04", 
-          nameCreator: "Juan", 
-          lastNameCreator: "Pérez", 
-          incompleta: false, 
-          estado: false 
-        },
-        { 
-          id: 2, 
-          nameTask: "Llamar al banco", 
-          descripcion: "Consultar el estado de la cuenta", 
-          fechaInicio: "2024-05-03", 
-          fechaCierre: "2024-05-03", 
-          nameCreator: "María", 
-          lastNameCreator: "González", 
-          incompleta: true, 
-          estado: true 
-        },
-        { 
-          id: 3, 
-          nameTask: "Preparar la presentación", 
-          descripcion: "Preparar la presentación para la reunión de mañana", 
-          fechaInicio: "2024-05-02", 
-          fechaCierre: "2024-05-05", 
-          nameCreator: "Carlos", 
-          lastNameCreator: "Martínez", 
-          incompleta: false, 
-          estado: true 
-        }
-      ];
-      setTodos(initialTodos);
-      setIsFetching(false);
-    }, 2000);
+    const fetchData = async () => {
+      try {
+        const data = await todosData(); // Llama a la función para obtener los datos
+        setTodos(data);
+        setIsFetching(false);
+      } catch (error) {
+        console.error("Error al obtener las tareas:", error);
+        setIsFetching(false);
+      }
+    };
+
+    fetchData(); 
   }, []);
 
-  const handleInputChange = (event) => {
-    setNewTodo(event.target.value);
-  };
-
-  const handleAddTodo = () => {
-    
-    console.log("Valor de newTodo:", newTodo);
-    if (newTodo.trim() !== "") {
-      const newTask = {
-        id: todos.length + 1,
-        nameTask: newTodo,
-        descripcion: "",
-        fechaInicio: "",
-        fechaCierre: "",
-        nameCreator: "",
-        lastNameCreator: "",
-        incompleta: true,
-        estado: true
-      };
-      setTodos([...todos, newTask]);
-      setNewTodo("");
-    } else {
-      alert("Por favor ingresa el nombre de la tarea.");
-    }
-  };
   
-  
-  
-
-  const handleToggleComplete = (id) => {
-    // Lógica para marcar una tarea como completada
-  };
-
-  const handleDeleteTodo = (id) => {
-    // Lógica para eliminar una tarea
-    const updatedTodos = todos.filter(todo => todo.id !== id);
-    setTodos(updatedTodos);
-  };
 
   if (isFetching) {
     return <LoadingSpinner />;
@@ -98,18 +33,41 @@ export const TaskPage = () => {
   return (
     <div className="task-page-container">
       <h1>Lista de tareas</h1>
-      <TodoForm
-        newTodo={newTodo}
-        onInputChange={handleInputChange}
-        onAddTodo={handleAddTodo}
-      />
-      <TodoList
-        todos={todos}
-        onToggleComplete={handleToggleComplete}
-        onDeleteTodo={handleDeleteTodo}
-      />
+      <TodoForm onAddTodo={handleAddTodo} />
+      <TodoList todos={todos} />
     </div>
   );
+};
+
+export const handleAddTodo = async (newTodo) => {
+  try {
+    const response = await postTask(newTodo);
+    if (!response.error) {
+      setTodos([...todos, response.data]);
+    } else {
+      console.error("Error al agregar la tarea: page..", response.message);
+      alert("Error al agregar la tarea. Por favor, inténtalo de nuevo. page");
+    }
+  } catch (e) {
+    console.error("Error al agregar la tarea:", e);
+    alert("Error al agregar la tarea. Por favor, inténtalo de nuevo. page");
+  }
+};
+
+const todosData = async () => {
+  try {
+    const response = await getTasks();
+    console.log(response.data)
+    if (!response.error) {
+      return response.data;
+    } else {
+      console.error("Error al obtener las tareas:", response.error);
+      return []; // Devolver un array vacío en caso de error
+    }
+  } catch (e) {
+    console.error("Error al obtener las tareas:", e);
+    return []; // Devolver un array vacío en caso de error
+  }
 };
 
 export default TaskPage;

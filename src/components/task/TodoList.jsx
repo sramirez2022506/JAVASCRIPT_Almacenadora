@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+// TodoList.jsx
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 
-export const TodoList = ({ todos, onToggleComplete, onDeleteTodo }) => {
+export const TodoList = ({ todos = [], onDeleteTodo }) => {
+  console.log(todos)
   const [listModalIsOpen, setListModalIsOpen] = useState(false);
   const [taskModalIsOpen, setTaskModalIsOpen] = useState(false);
   const [selectedTodo, setSelectedTodo] = useState(null);
@@ -34,7 +36,7 @@ export const TodoList = ({ todos, onToggleComplete, onDeleteTodo }) => {
       >
         <h2>Lista de Tareas</h2>
         <ul>
-          {todos.map((todo) => (
+          {todos && Array.isArray(todos) && todos.map((todo) => (
             <li key={todo._id}>
               <button onClick={() => openTaskModal(todo)}>{todo.nameTask}</button>
             </li>
@@ -50,14 +52,17 @@ export const TodoList = ({ todos, onToggleComplete, onDeleteTodo }) => {
         {selectedTodo && (
           <div>
             <h2>Detalles de la Tarea</h2>
-            <p><strong>Nombre:</strong> {selectedTodo.nameTask}</p>
-            <p><strong>Descripción:</strong> {selectedTodo.descripcion}</p>
-            <p><strong>Fecha de Inicio:</strong> {selectedTodo.fechaInicio}</p>
-            <p><strong>Fecha de Cierre:</strong> {selectedTodo.fechaCierre}</p>
-            <p><strong>Nombre del Creador:</strong> {selectedTodo.nameCreator}</p>
-            <p><strong>Apellido del Creador:</strong> {selectedTodo.lastNameCreator}</p>
-            <button onClick={() => onDeleteTodo(selectedTodo._id)}>Eliminar</button>
-            {/* Agrega el botón de actualizar aquí */}
+            {todos.map(todo => (
+              <div key={todo._id}>
+                <p><strong>Nombre:</strong> {todo.nameTask}</p>
+                <p><strong>Descripción:</strong> {todo.descripcion}</p>
+                <p><strong>Fecha de Inicio:</strong> {todo.fechaInicio}</p>
+                <p><strong>Fecha de Cierre:</strong> {todo.fechaCierre}</p>
+                <p><strong>Nombre del Creador:</strong> {todo.nameCreator}</p>
+                <p><strong>Apellido del Creador:</strong> {todo.lastNameCreator}</p>
+                <button onClick={() => onDeleteTodo(todo._id)}>Eliminar</button>
+              </div>
+            ))}
             <button onClick={closeTaskModal}>Cerrar</button>
           </div>
         )}
@@ -65,3 +70,5 @@ export const TodoList = ({ todos, onToggleComplete, onDeleteTodo }) => {
     </div>
   );
 };
+
+export default TodoList;
