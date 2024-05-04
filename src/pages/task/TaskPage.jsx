@@ -1,9 +1,10 @@
-// TaskPage.jsx
+
 import React, { useState, useEffect } from "react";
 import { TodoForm } from "../../components/task/TodoForm.jsx";
 import { TodoList } from "../../components/task/TodoList";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { getTasks, postTask } from "../../services/api.jsx";
+import "./TaskPage.css"
 
 export const TaskPage = () => {
   const [todos, setTodos] = useState([]);
@@ -12,7 +13,7 @@ export const TaskPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await todosData(); // Llama a la función para obtener los datos
+        const data = await todosData(); 
         setTodos(data);
         setIsFetching(false);
       } catch (error) {
@@ -33,24 +34,24 @@ export const TaskPage = () => {
   return (
     <div className="task-page-container">
       <h1>Lista de tareas</h1>
-      <TodoForm onAddTodo={handleAddTodo} />
+      <TodoForm onAddTodo={(newTodo) => handleAddTodo(newTodo, todos, setTodos)} />
       <TodoList todos={todos} />
     </div>
   );
 };
 
-export const handleAddTodo = async (newTodo) => {
+export const handleAddTodo = async (newTodo, setTodos) => {
   try {
     const response = await postTask(newTodo);
-    if (!response.error) {
+    if (response && !response.error) {
       setTodos([...todos, response.data]);
     } else {
-      console.error("Error al agregar la tarea: page..", response.message);
-      alert("Error al agregar la tarea. Por favor, inténtalo de nuevo. page");
+      console.error("Error trying to add task:", response.message);
+      alert("Error trying to add the task, please try again later");
     }
   } catch (e) {
-    console.error("Error al agregar la tarea:", e);
-    alert("Error al agregar la tarea. Por favor, inténtalo de nuevo. page");
+    console.error("Error trying to add task:", e);
+    alert("Error trying to add task, please try again later");
   }
 };
 
@@ -62,11 +63,11 @@ const todosData = async () => {
       return response.data;
     } else {
       console.error("Error al obtener las tareas:", response.error);
-      return []; // Devolver un array vacío en caso de error
+      return []; 
     }
   } catch (e) {
     console.error("Error al obtener las tareas:", e);
-    return []; // Devolver un array vacío en caso de error
+    return []; 
   }
 };
 

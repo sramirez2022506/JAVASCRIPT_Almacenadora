@@ -17,8 +17,8 @@ export const TodoForm = ({ onAddTodo }) => {
     setTask({ ...task, [name]: value });
   };
 
-  const handleAddTodo = async () => {
-    console.log("Datos del formulario:", task);
+  const handleAddTodo = async (newTodo) => {
+    console.log("Form data:", task);
     if (
       task.nameTask &&
       task.descripcion &&
@@ -30,9 +30,6 @@ export const TodoForm = ({ onAddTodo }) => {
       try {
         const response = await metod(task);
         if (!response.error) {
-          // Llamar a la función proporcionada desde TaskPage para agregar la nueva tarea
-          onAddTodo(response.data);
-          // Limpiar el formulario después de agregar la tarea
           setTask({
             nameTask: "",
             descripcion: "",
@@ -42,17 +39,14 @@ export const TodoForm = ({ onAddTodo }) => {
             lastNameCreator: ""
           });
         } else {
-          // Manejar el error de manera adecuada
-          alert("Error al agregar la tarea. Por favor, inténtalo de nuevo. form");
+          alert("Error trying to add the task");
         }
       } catch (error) {
-        // Manejar el error de manera adecuada
-        console.error("Error al agregar la tarea:", error);
-        alert("Error al agregar la tarea. Por favor, inténtalo de nuevo. form");
+        console.error("Error trying to add the task:", error);
+        alert("Error trying to add the task, please try again later");
       }
     } else {
-      // Notificar al usuario que debe completar todos los campos
-      alert("Por favor completa todos los campos");
+      alert("Please complete the fields");
     }
   };
 

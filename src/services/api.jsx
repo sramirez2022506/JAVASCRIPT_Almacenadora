@@ -23,7 +23,6 @@ apiClient.interceptors.request.use(
 
 export const postTask = async (datos) => {
     try {
-        // Aquí se especifica el endpoint correcto para agregar una nueva tarea
         return await apiClient.post("/", datos);
     } catch (error) {
         console.error("Error al agregar la tarea:", error);
@@ -34,9 +33,10 @@ export const postTask = async (datos) => {
 
 export const getTasks = async () => {
     try {
-        return await apiClient.get('/');
+        const response = await apiClient.get(`/`)
+        return response.data.tasks;
     } catch (error) {
-        console.error('Error al obtener las tareas:', error);
-        return { error: true, message: 'Error al obtener las tareas. Por favor, inténtalo de nuevo.' };
+        console.error('Error trying to add task:', error);
+        return { error: true, message: 'Error trying to add task, please try again later' };
     }
 }
